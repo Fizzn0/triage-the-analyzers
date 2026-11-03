@@ -13,5 +13,16 @@
          xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
     <description>PMD quickstart, with Project Pulse's decisions.</description>
     <rule ref="rulesets/java/quickstart.xml">
+        <!-- D2: Keep explicit no-argument construction in JPA entities and mutable API/report
+             beans. JPA needs an accessible no-arg constructor even when another constructor
+             is added later; bean construction is also part of our serialization contract.
+             Repeating a comment in every empty constructor adds no class-specific explanation.
+             Constructor visibility and invariants still need review when a class changes. -->
+        <exclude name="UncommentedEmptyConstructor"/>
+        <exclude name="UnnecessaryConstructor"/>
     </rule>
+    <!-- D3: Enforce braces, including early returns in authorization and association helpers,
+         so a later added statement cannot accidentally execute outside the condition. -->
+    <!-- D4: Enforce GuardLogStatement. SLF4J placeholders defer formatting, but not argument
+         evaluation: getters and collection operations must stay inside the enabled guard. -->
 </ruleset>

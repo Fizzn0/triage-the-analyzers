@@ -7,4 +7,14 @@
 
      Unlike the baseline, this file may grow, but every entry is a reviewed decision. -->
 <FindBugsFilter>
+    <!-- D1: Project Pulse uses a mutable object model: JPA associations retain managed entity
+         identity and collections, constructor-injected Spring services share bean instances,
+         and DTO/report beans carry those collections to converters/serialization. Blind copies
+         would break association mutation or dependency identity, and shallow DTO copies would
+         not make their entity elements immutable. Disable these two representation warnings
+         project-wide; review ownership explicitly if an immutable value/security boundary is
+         introduced. This does not disable null, equality, or other SpotBugs checks. -->
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
 </FindBugsFilter>
