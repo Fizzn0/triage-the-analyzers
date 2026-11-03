@@ -2,7 +2,12 @@ package team.projectpulse.ram.document;
 
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.Locale;
+
 public class RequirementDocumentSpecs {
+
+    private RequirementDocumentSpecs() {
+    }
 
     public static Specification<RequirementDocument> hasType(DocumentType providedType) {
         return (root, query, criteriaBuilder) ->
@@ -16,7 +21,7 @@ public class RequirementDocumentSpecs {
 
     public static Specification<RequirementDocument> hasTitleLike(String providedTitle) {
         return (root, query, criteriaBuilder) ->
-                criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), "%" + providedTitle.toLowerCase() + "%");
+                criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), "%" + providedTitle.toLowerCase(Locale.ROOT) + "%");
     }
 
 }
